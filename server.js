@@ -36,16 +36,31 @@ app.post("/api", (req, res) => {
 })
 
 app.get("/getallusers", (req, res) => {
-    res.send(data)
-})
+    User
+    .find()
+    .then(results => {
+      console.log(results)
+      res.send(results)
+    })
+ }) 
 
 
 //use params to access a page
-app.get("/showprofile/:username", (req, res) => {
-    const user  = req.params.username
-    console.log(user)
-    res.send("profile page working")
-})
+app.get("/showprofile/:username", function (req, res) {
+    const user = req.params.username;
+    console.log(user);
+   
+    User.find({ username: user })
+      .then(result => {
+        console.log("Showing", user, "profile:", result)
+        res.send(result)
+      })
+      .catch(err => {
+        console.log(err)
+        res.send(err)
+      })
+   })
+   
 
 const port = process.env.PORT || 3000
 app.listen(port, (error) => {

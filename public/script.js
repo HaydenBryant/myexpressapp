@@ -29,9 +29,12 @@ function handleSubmit () {
 
 }
 
-function getAllUsers(){
-    axios.get("/getallusers")
-        .then(response => {
-            document.getElementById("result").innerHTML = JSON.stringify(response.data)
-        })
-}
+function getUserInfo() {
+    const input = document.getElementById("userName").value;
+    const url = "/showprofile/" + input;
+    axios.get(url)
+      .then(response => {
+        document.getElementById("userInfo").innerHTML = JSON.stringify(response.data);
+      })
+   }
+   
